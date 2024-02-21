@@ -1,0 +1,42 @@
+//sliding window test
+
+#include <iostream>
+#include <vector>
+
+std::vector<int> simulate(const std::vector<int> &entries)
+{
+    std::vector<int> result = entries;
+    int n = entries.size();
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (i < 3 && i + 4 < n && entries[i + 4] >= entries[i])
+        {
+          result[i] = 0;
+        }
+        else if (i >= n-4 && i - 3 >= 0 && entries[i - 3] >= entries[i])
+        {
+          result[i] = 0;
+        }
+        else if (i + 4 < n && entries[i + 4] >= entries[i] || i - 3 >= 0 && entries[i - 3] >= entries[i])
+        {
+          result[i] = 0;
+        }
+    }
+
+    return result;
+}
+
+#ifndef RunTests
+int main()
+{
+    std::vector<int> result = simulate({1, 2, 0, 5, 0, 2, 4, 3, 3, 3});
+//input 题目给的输入
+    for (int value : result)
+    {
+        std::cout << value << " ";
+    }
+    // expected output 期望输出
+    // 1, 0, 0, 5, 0, 0, 0, 3, 3, 0
+}
+#endif
